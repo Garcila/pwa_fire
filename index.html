@@ -9,7 +9,128 @@
 		<title>PWA</title>
 	</head>
 	<body>
-		<h1>🦄﹠🌈</h1>
+		<style>
+			:root[color-mode='dark'] {
+			  --background: #1d3557;
+			  --text: #f1faee;
+			  --button: #e63946;
+			}
+			:root[color-mode='light'] {
+			  --background: #a8dadc;
+			  --text: #1d3557;
+			  --button: #457b9d;
+			}
+	  
+			body {
+			  background-color: var(--background);
+			  color: var(--text);
+			}
+	  
+			input[type='submit'],
+			button[type='submit'],
+			button:not([disabled]) {
+			  background: var(--button);
+			}
+			input[type='submit']:hover,
+			button[type='submit']:hover,
+			button:not([disabled]):hover {
+			  background: var(--button);
+			}
+	  
+			dd + dt {
+			  border-top: 1px solid var(--primary);
+			}
+	  
+			blockquote {
+			  border-left: 1px solid var(--primary);
+			}
+	  
+			mark {
+			  background: var(--primary);
+			}
+	  
+			a {
+			  color: var(--primary);
+			}
+	  
+			::-webkit-scrollbar-thumb:hover {
+			  background: var(--primary);
+			}
+		  </style>
+		  <title>NASA Images</title>
+		</head>
+		<body>
+		  <header>
+			<h1>Silent NASA</h1>
+			<h2>Lorem ipsum dolor sit</h2>
+			<button id="change-colour">Colour</button>
+		  </header>
+		  <main>
+			<article>
+			  <form>
+				<label>Look for 🔭</label>
+				<input type="text" placeholder="i.e moon" />
+				<button type="submit">Fetch</button>
+			  </form>
+			</article>
+			<article id="images">the images will go here</article>
+		  </main>
+		  <script>
+			var colorChange = document.querySelector('#change-colour');
+			var images = document.querySelector('#images');
+			var form = document.querySelector('form');
+			var currentMode = localStorage.getItem('color-mode') || 'light';
+			var html = document.querySelector('html');
+	  
+			function populatePage(data) {
+			  images.textContent = '';
+			  var allImages = data.collection.items;
+			  console.log('from populate ', allImages);
+			  for (var i = 0; i < allImages.length; i++) {
+				var figure = document.createElement('figure');
+				var figcaption = document.createElement('figcaption');
+				var img = document.createElement('img');
+				img.src = allImages[i].links[0].href;
+				figure.appendChild(img);
+	  
+				images.appendChild(figure);
+			  }
+			}
+	  
+			function getImages(query) {
+			  var url = `https://images-api.nasa.gov/search?q=${query}`;
+			  fetch(url)
+				.then(function (response) {
+				  return response.json();
+				})
+				.then(function (data) {
+				  // console.log(data.collection.items[0].links[0].href);
+				  populatePage(data);
+				});
+			}
+	  
+			form.addEventListener('submit', function (event) {
+			  event.preventDefault();
+			  var searchTerm = document.querySelector('input').value;
+			  getImages(searchTerm);
+			});
+	  
+			colorChange.addEventListener('click', function () {
+			  currentMode = html.getAttribute('color-mode');
+			  if (currentMode === 'light') {
+				html.setAttribute('color-mode', 'dark');
+				localStorage.setItem('color-mode', 'dark');
+			  } else {
+				html.setAttribute('color-mode', 'light');
+				localStorage.setItem('color-mode', 'light');
+			  }
+			});
+			function setMode(currentMode) {
+			  console.log(currentMode);
+			  html.setAttribute('color-mode', currentMode);
+			}
+			setMode(currentMode);
+		  </script>
 
 		<script>
 			// if ( in )  works like for ( in ).
