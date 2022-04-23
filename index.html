@@ -90,6 +90,7 @@
 			var figure = document.createElement('figure');
 			var figcaption = document.createElement('figcaption');
 			var img = document.createElement('img');
+			img.setAttribute('loading','lazy');
 			img.src = allImages[i].links[0].href;
 			figure.appendChild(img);
 	
