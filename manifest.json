@@ -3,6 +3,7 @@
 	"background_color": "#cd2fdc",
 	"display": "standalone",
 	"name": "PWA on Fire",
+	"start_url": "./index.html",
 	"short_name": "Fire\ud83d\udd25",
 	"description": "toy application to demo PWA",
 	"icons": [
