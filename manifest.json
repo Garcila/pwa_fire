@@ -5,7 +5,6 @@
 	"name": "PWA on Fire",
 	"short_name": "Fire\ud83d\udd25",
 	"description": "toy application to demo PWA",
-	"start_url": "/",
 	"icons": [
 		{
 			"src": "./icon-192x192.png",
