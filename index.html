@@ -76,60 +76,60 @@
 			</article>
 			<article id="images">the images will go here</article>
 		  </main>
-		  <script>
-			var colorChange = document.querySelector('#change-colour');
-			var images = document.querySelector('#images');
-			var form = document.querySelector('form');
-			var currentMode = localStorage.getItem('color-mode') || 'light';
-			var html = document.querySelector('html');
-	  
-			function populatePage(data) {
-			  images.textContent = '';
-			  var allImages = data.collection.items;
-			  for (var i = 0; i < allImages.length; i++) {
-				var figure = document.createElement('figure');
-				var figcaption = document.createElement('figcaption');
-				var img = document.createElement('img');
-				img.src = allImages[i].links[0].href;
-				figure.appendChild(img);
-	  
-				images.appendChild(figure);
-			  }
+		<script>
+		var colorChange = document.querySelector('#change-colour');
+		var images = document.querySelector('#images');
+		var form = document.querySelector('form');
+		var currentMode = localStorage.getItem('color-mode') || 'light';
+		var html = document.querySelector('html');
+	
+		function populatePage(data) {
+			images.textContent = '';
+			var allImages = data.collection.items;
+			for (var i = 0; i < allImages.length; i++) {
+			var figure = document.createElement('figure');
+			var figcaption = document.createElement('figcaption');
+			var img = document.createElement('img');
+			img.src = allImages[i].links[0].href;
+			figure.appendChild(img);
+	
+			images.appendChild(figure);
 			}
-	  
-			function getImages(query) {
-			  var url = `https://images-api.nasa.gov/search?q=${query}`;
-			  fetch(url)
-				.then(function (response) {
-				  return response.json();
-				})
-				.then(function (data) {
-				  // console.log(data.collection.items[0].links[0].href);
-				  populatePage(data);
-				});
-			}
-	  
-			form.addEventListener('submit', function (event) {
-			  event.preventDefault();
-			  var searchTerm = document.querySelector('input').value;
-			  getImages(searchTerm);
+		}
+	
+		function getImages(query) {
+			var url = `https://images-api.nasa.gov/search?q=${query}`;
+			fetch(url)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				// console.log(data.collection.items[0].links[0].href);
+				populatePage(data);
 			});
-	  
-			colorChange.addEventListener('click', function () {
-			  currentMode = html.getAttribute('color-mode');
-			  if (currentMode === 'light') {
-				html.setAttribute('color-mode', 'dark');
-				localStorage.setItem('color-mode', 'dark');
-			  } else {
-				html.setAttribute('color-mode', 'light');
-				localStorage.setItem('color-mode', 'light');
-			  }
-			});
-			function setMode(currentMode) {
-			  html.setAttribute('color-mode', currentMode);
+		}
+	
+		form.addEventListener('submit', function (event) {
+			event.preventDefault();
+			var searchTerm = document.querySelector('input').value;
+			getImages(searchTerm);
+		});
+	
+		colorChange.addEventListener('click', function () {
+			currentMode = html.getAttribute('color-mode');
+			if (currentMode === 'light') {
+			html.setAttribute('color-mode', 'dark');
+			localStorage.setItem('color-mode', 'dark');
+			} else {
+			html.setAttribute('color-mode', 'light');
+			localStorage.setItem('color-mode', 'light');
 			}
-			setMode(currentMode);
-		  </script>
+		});
+		function setMode(currentMode) {
+			html.setAttribute('color-mode', currentMode);
+		}
+		setMode(currentMode);
+		</script>
 
 		<script>
 			// if ( in )  works like for ( in ).
