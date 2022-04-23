@@ -4,6 +4,7 @@
 	"display": "standalone",
 	"name": "PWA on Fire",
 	"short_name": "Fire\ud83d\udd25",
+	"start_url": "./index.html",
 	"description": "toy application to demo PWA",
 	"icons": [
 		{
